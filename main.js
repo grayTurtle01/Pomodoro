@@ -28,9 +28,10 @@ document.querySelector("#break-decrement").onclick = function(){
 
 /// break increment
 document.querySelector("#break-increment").onclick = function(){
-    break_time += 1;
-    document.querySelector("#break-length").innerText = break_time
-    
+    if( break_time < 60 ){
+        break_time += 1;
+        document.querySelector("#break-length").innerText = break_time
+    }
 }
 
 
