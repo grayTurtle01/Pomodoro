@@ -72,6 +72,8 @@ document.querySelector("#session-increment").onclick = function(){
 document.querySelector("#start_stop").onclick = start_stop
 
 
+
+
 function start_stop(){
     is_playing = !is_playing
 
@@ -116,9 +118,11 @@ function update_timmer(){
     check_state()
 }
 
+let audio = document.querySelector("audio")
 function check_state(){
      if( state == "session")
         if( minutes == 0 && seconds == 0){
+            audio.play()
             state = "break"
             document.querySelector("#timer-label").innerText = 'Break'
             minutes = break_time;
@@ -128,6 +132,7 @@ function check_state(){
         
     if( state == "break")
         if( minutes == 0 && seconds == 0){
+            audio.play()
             state = "session"
             document.querySelector("#timer-label").innerText = 'Session'
             minutes = session_time;
