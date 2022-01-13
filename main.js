@@ -32,3 +32,19 @@ document.querySelector("#break-increment").onclick = function(){
     
 }
 
+
+/// session decrement
+document.querySelector("#session-decrement").onclick = function(){
+    session_time -= 1;
+    document.querySelector("#session-length").innerText = session_time
+    
+}
+
+/// session increment
+document.querySelector("#session-increment").onclick = function(){
+    session_time += 1;
+    document.querySelector("#session-length").innerText = session_time
+    
+}
+
+
