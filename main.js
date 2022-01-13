@@ -21,6 +21,8 @@ document.querySelector("#reset").onclick = function(){
     minutes = session_time;
     seconds = 0
     str_timer = '25:00'
+
+    state = "session"
     
     
 
@@ -104,8 +106,11 @@ function start_stop(){
 }
 
 let max_seconds = 59
-//~ max_seconds = 5
-//~ minutes = 1
+max_seconds = 5
+minutes = 1
+
+session_time = 1
+break_time = 1
 
 function decrement_seconds(){
     if( seconds == 0){
@@ -147,9 +152,9 @@ function check_state(){
             audio.play()
             state = "break"
             document.querySelector("#timer-label").innerText = 'Break'
-            minutes = break_time;
+            //~ minutes = break_time;
+            minutes = document.querySelector("#break-length").innerText;
             seconds = 0;
-            //update_timmer()
         }
         
     if( state == "break")
@@ -157,9 +162,9 @@ function check_state(){
             audio.play()
             state = "session"
             document.querySelector("#timer-label").innerText = 'Session'
-            minutes = session_time;
+            //~ minutes = session_time;
+            minutes = document.querySelector("#session-length").innerText;
             seconds = 0;
-            //update_timmer()
         }
 
 }
