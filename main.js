@@ -1,6 +1,8 @@
 let break_time = 5;
-let session_time = 25;
+let session_time = 10;
 let is_playing = false;
+
+let state = "session"
 
 let minutes = session_time;
 let seconds = 0;
@@ -69,7 +71,7 @@ document.querySelector("#session-increment").onclick = function(){
 /// stop-play
 document.querySelector("#start_stop").onclick = start_stop
 
-//help-dev variables
+
 function start_stop(){
     is_playing = !is_playing
 
@@ -110,7 +112,29 @@ function update_timmer(){
     
     str_timer = formatted_minutes + ':' + formatted_seconds
     document.querySelector("#time-left").innerText = str_timer
-    
+
+    check_state()
+}
+
+function check_state(){
+     if( state == "session")
+        if( minutes == 0 && seconds == 0){
+            state = "break"
+            document.querySelector("#timer-label").innerText = 'Break'
+            minutes = break_time;
+            seconds = 0;
+            update_timer()
+        }
+        
+    if( state == "break")
+        if( minutes == 0 && seconds == 0){
+            state = "session"
+            document.querySelector("#timer-label").innerText = 'Session'
+            minutes = session_time;
+            seconds = 0;
+            update_timer()
+        }
+
 }
 
 
