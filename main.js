@@ -20,9 +20,10 @@ document.querySelector("#reset").onclick = function(){
 
 /// break decrement
 document.querySelector("#break-decrement").onclick = function(){
-    break_time -= 1;
-    document.querySelector("#break-length").innerText = break_time
-    
+    if( break_time > 0){
+        break_time -= 1;
+        document.querySelector("#break-length").innerText = break_time
+    }
 }
 
 /// break increment
