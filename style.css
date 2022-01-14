@@ -2,6 +2,35 @@
     text-align: center;
     width: 300px;
     margin: auto;
+    margin-top: 15vh;
     border: 1px solid black;
-    border-radius: 10px;
+    border-radius: 0px;
+    padding: 5px;
+}
+
+#time-bar{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+#break-control{
+    width: 125px;
+    border: 1px solid black;
+    border-radius: 0px;
+    padding: 3px;
+}
+
+#session-control{
+    width: 125px;
+    border: 1px solid black;
+    border-radius: 0px;
+}
+
+#display{
+    width: 125px;
+    border: 1px solid black;
+    border-radius: 0px;
+
+    margin: 5px auto;
 }
