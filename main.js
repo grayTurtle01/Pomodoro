@@ -10,7 +10,8 @@ let max_seconds = 59
 let str_timer = '25:00'
 
 let audio = document.querySelector("audio")
-
+let interval = setInterval(decrement_second, 1000)
+clearInterval(interval)
 
 // dev-mod
 document.querySelector('input').onclick = function(){
@@ -147,9 +148,16 @@ function decrement_second(){
     else if( seconds > 0){
         seconds--;        
     }
-        
+    
+    if( minutes == 0 && seconds == 0){
+    }
+    
+    if( minutes == -1){
+        switch_state()
+        change_counter()
+    }
+    
     update_display()
-    check_state()
 }
 
 function update_display(){
@@ -169,54 +177,40 @@ function update_display(){
 
 }
 
-let pause_ms = 1000
-function check_state(){
+let pause_ms = 0
+function switch_state(){
+    audio.play()
     
      if( state == "session"){
-
-         if( minutes == 0 && seconds == 0){
-             audio.play()
              document.querySelector("#timer-label").innerText = 'Break'
              state = "break"
-             
-             //pause one second to show 00:00
-            is_playing = false
-            start_stop()
-            
-             setTimeout( ()=>{
-                 minutes = document.querySelector("#break-length").innerText;
-                 seconds = 0;
-                 update_display()
-                 is_playing = true
-                 start_stop()
-             }, pause_ms)
-             
-            }
-            
+                
     }
     else if( state == "break"){
-
-        if( minutes == 0 && seconds == 0){
-            audio.play()
             document.querySelector("#timer-label").innerText = 'Session'
-            state = "session"
-            
-            //pause one second to show 00:00
-            is_playing = false
-            start_stop()
-            
-             setTimeout( ()=>{
-                 minutes = document.querySelector("#session-length").innerText;
-                 seconds = 0;
-                 update_display()
-                 is_playing = true
-                 start_stop()
-             }, pause_ms)
-                
-            
-        }
+            state = "session"   
     }
 
+}
+
+function change_counter(){
+   
+    is_playing = false
+    start_stop()
+
+    seconds = 0;
+    
+   if( state == "session"){
+        minutes = document.querySelector("#break-length").innerText;
+   }
+   else if( state == "break"){
+        minutes = document.querySelector("#session-length").innerText;
+    }
+    
+    update_display()
+
+    is_playing = true
+    start_stop()
 }
 
 
