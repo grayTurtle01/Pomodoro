@@ -9,6 +9,8 @@ let seconds = 0;
 let max_seconds = 59
 let str_timer = '25:00'
 
+let second_speed_ms = 1000
+
 let audio = document.querySelector("audio")
 let interval = setInterval(decrement_second, 1000)
 clearInterval(interval)
@@ -23,6 +25,7 @@ document.querySelector('input').onclick = function(){
         minutes = session_time
         str_timer = '01:00'
         max_seconds = 5
+        second_speed_ms = 1000
     }
     else{
         break_time = 5
@@ -30,6 +33,7 @@ document.querySelector('input').onclick = function(){
         minutes = session_time
         str_timer = '25:00'
         max_seconds = 59
+        second_speed_ms = 1000
     }
      init()
 }
@@ -77,10 +81,14 @@ document.querySelector("#reset").onclick = function(){
 
 /// break decrement
 document.querySelector("#break-decrement").onclick = function(){
+    
     if( (break_time > 1) && !is_playing){
         break_time -= 1;
         document.querySelector("#break-length").innerText = break_time
-        
+        if( state == 'break'){
+            minutes--
+            update_display()
+        }
     }
 }
 
@@ -89,7 +97,10 @@ document.querySelector("#break-increment").onclick = function(){
     if( break_time < 60 && !is_playing ){
         break_time += 1;
         document.querySelector("#break-length").innerText = break_time
-        update_display()
+        if( state == 'break'){
+            minutes++
+            update_display()
+        }
     }
 }
 
@@ -99,8 +110,11 @@ document.querySelector("#session-decrement").onclick = function(){
     if( session_time > 1 && !is_playing){
         session_time -= 1;
         document.querySelector("#session-length").innerText = session_time
-        minutes--;
-        update_display()
+        if( state == 'session'){
+
+            minutes--;
+            update_display()
+        }
     }
     
 }
@@ -110,8 +124,10 @@ document.querySelector("#session-increment").onclick = function(){
     if( session_time < 60 && !is_playing){
         session_time += 1;
         document.querySelector("#session-length").innerText = session_time
-        minutes++
-        update_display()
+        if( state == 'session'){
+            minutes++
+            update_display()
+        }
     }
     
 }
@@ -127,7 +143,7 @@ document.querySelector("#start_stop").onclick = function(){
 function start_stop(){
 
     if( is_playing ){
-        interval = setInterval(decrement_second, 1000)
+        interval = setInterval(decrement_second, second_speed_ms)
     }
     else{
         try{
@@ -140,24 +156,29 @@ function start_stop(){
 
 
 function decrement_second(){
+
+    // decrement minutes
     if( seconds == 0){
         minutes--;
         seconds = max_seconds
     }
     
+    // decrement seconds
     else if( seconds > 0){
         seconds--;        
     }
+    update_display()
     
     if( minutes == 0 && seconds == 0){
+        audio.play()
+        console.log(str_timer, state)
+        switch_state()
     }
     
     if( minutes == -1){
-        switch_state()
         change_counter()
     }
     
-    update_display()
 }
 
 function update_display(){
@@ -179,8 +200,10 @@ function update_display(){
 
 let pause_ms = 0
 function switch_state(){
-    audio.play()
-    
+
+    is_playing = false
+    start_stop()
+
      if( state == "session"){
              document.querySelector("#timer-label").innerText = 'Break'
              state = "break"
@@ -191,13 +214,13 @@ function switch_state(){
             state = "session"   
     }
 
+    is_playing = true
+    start_stop()
+
 }
 
 function change_counter(){
    
-    is_playing = false
-    start_stop()
-
     seconds = 0;
     
    if( state == "session"){
@@ -208,9 +231,6 @@ function change_counter(){
     }
     
     update_display()
-
-    is_playing = true
-    start_stop()
 }
 
 
