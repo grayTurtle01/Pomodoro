@@ -171,11 +171,11 @@ function decrement_second(){
     
     if( minutes == 0 && seconds == 0){
         audio.play()
-        console.log(str_timer, state)
-        switch_state()
+        //console.log(str_timer, state)
     }
     
     if( minutes == -1){
+        switch_state()
         change_counter()
     }
     
@@ -221,7 +221,7 @@ function switch_state(){
 
 function change_counter(){
    
-    seconds = 0;
+   seconds = 0;
     
    if( state == "session"){
         minutes = document.querySelector("#break-length").innerText;
