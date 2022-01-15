@@ -11,12 +11,27 @@ let str_timer = '25:00'
 
 let audio = document.querySelector("audio")
 
-// dev-variables
-//~ break_time = 1
-//~ session_time = 1
-//~ minutes = session_time
-//~ str_timer = '01:00'
-//~ max_seconds = 10
+
+// dev-mod
+document.querySelector('input').onclick = function(){
+    
+    if( this.checked ){
+
+        break_time = 1
+        session_time = 1
+        minutes = session_time
+        str_timer = '01:00'
+        max_seconds = 5
+    }
+    else{
+        break_time = 5
+        session_time = 25
+        minutes = session_time
+        str_timer = '25:00'
+        max_seconds = 59
+    }
+     init()
+}
 
 function init(){
     document.querySelector("#break-length").innerText = break_time
@@ -36,7 +51,7 @@ document.querySelector("#reset").onclick = function(){
     is_playing = false;
     start_stop()
    
-    minutes = session_time;
+    minutes = 25;
     seconds = 0
     str_timer = '25:00'
 
@@ -64,7 +79,7 @@ document.querySelector("#break-decrement").onclick = function(){
     if( (break_time > 1) && !is_playing){
         break_time -= 1;
         document.querySelector("#break-length").innerText = break_time
-        update_timmer()
+        
     }
 }
 
@@ -73,7 +88,7 @@ document.querySelector("#break-increment").onclick = function(){
     if( break_time < 60 && !is_playing ){
         break_time += 1;
         document.querySelector("#break-length").innerText = break_time
-        update_timmer()
+        update_display()
     }
 }
 
@@ -84,7 +99,7 @@ document.querySelector("#session-decrement").onclick = function(){
         session_time -= 1;
         document.querySelector("#session-length").innerText = session_time
         minutes--;
-        update_timmer()
+        update_display()
     }
     
 }
@@ -95,7 +110,7 @@ document.querySelector("#session-increment").onclick = function(){
         session_time += 1;
         document.querySelector("#session-length").innerText = session_time
         minutes++
-        update_timmer()
+        update_display()
     }
     
 }
@@ -108,7 +123,6 @@ document.querySelector("#start_stop").onclick = function(){
 }
 
 
-
 function start_stop(){
 
     if( is_playing ){
@@ -117,7 +131,9 @@ function start_stop(){
     else{
         try{
             clearInterval(interval)
-        }catch{}
+        }catch{
+            console.log("interval error")
+        }
     }
 }
 
@@ -132,11 +148,11 @@ function decrement_second(){
         seconds--;        
     }
         
-    update_timmer()
+    update_display()
     check_state()
 }
 
-function update_timmer(){
+function update_display(){
     
     formatted_seconds = seconds.toLocaleString('en-US', {
                                 minimumIntegerDigits: 2,
@@ -151,47 +167,55 @@ function update_timmer(){
     str_timer = formatted_minutes + ':' + formatted_seconds
     document.querySelector("#time-left").innerText = str_timer
 
-    //check_state()
-    
 }
 
-
-async function check_state(){
+let pause_ms = 1000
+function check_state(){
     
-     if( state == "session")
-        if( minutes == 0 && seconds == 0){
-            audio.play()
-            is_playing = false
-            start_stop()
-            state = "break"
-            minutes = document.querySelector("#break-length").innerText;
-            seconds = 0;
-            
-            await setTimeout( ()=> {
-               is_playing = true
-               start_stop() 
-               document.querySelector("#timer-label").innerText = 'Break'
-               update_timmer()
-            } , 3000)
-        }
-        
-    if( state == "break")
-        if( minutes == 0 && seconds == 0){
-            audio.play()
-            is_playing = false
-            start_stop()
-            state = "session"
-            minutes = document.querySelector("#session-length").innerText;
-            seconds = 0;
+     if( state == "session"){
 
-           await setTimeout( ()=> {
-               is_playing = true
-               start_stop() 
-               document.querySelector("#timer-label").innerText = 'Session'
-               update_timmer()
-            } , 3000)
+         if( minutes == 0 && seconds == 0){
+             audio.play()
+             document.querySelector("#timer-label").innerText = 'Break'
+             state = "break"
+             
+             //pause one second to show 00:00
+            is_playing = false
+            start_stop()
+            
+             setTimeout( ()=>{
+                 minutes = document.querySelector("#break-length").innerText;
+                 seconds = 0;
+                 update_display()
+                 is_playing = true
+                 start_stop()
+             }, pause_ms)
+             
+            }
+            
+    }
+    else if( state == "break"){
+
+        if( minutes == 0 && seconds == 0){
+            audio.play()
+            document.querySelector("#timer-label").innerText = 'Session'
+            state = "session"
+            
+            //pause one second to show 00:00
+            is_playing = false
+            start_stop()
+            
+             setTimeout( ()=>{
+                 minutes = document.querySelector("#session-length").innerText;
+                 seconds = 0;
+                 update_display()
+                 is_playing = true
+                 start_stop()
+             }, pause_ms)
+                
             
         }
+    }
 
 }
 
