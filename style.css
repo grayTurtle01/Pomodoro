@@ -1,9 +1,20 @@
+body{
+    background-color: #1e555c;
+    color: white;
+    font-family: serif;
+}
+
+#main-title{
+    text-align: center;
+    font-size: 50px;
+    margin-top: 50px;
+}
+
 #container{
     text-align: center;
-    width: 300px;
+    width: 550px;
     margin: auto;
-    margin-top: 15vh;
-    border: 1px solid black;
+    margin-top: 8vh;
     border-radius: 0px;
     padding: 5px;
 }
@@ -12,25 +23,34 @@
     display: flex;
     justify-content: space-between;
     padding: 10px;
+    font-size: 30px;
 }
 
 #break-control{
-    width: 125px;
-    border: 1px solid black;
-    border-radius: 0px;
+    width: 250px;
     padding: 3px;
 }
 
+#break-length{
+    display: inline-block;
+    width: 40px;
+}
+
+
 #session-control{
-    width: 125px;
-    border: 1px solid black;
-    border-radius: 0px;
+    width: 255px;
+}
+
+#session-length{
+    display: inline-block;
+    width: 40px;
 }
 
 #display{
-    width: 125px;
-    border: 1px solid black;
-    border-radius: 0px;
+    width: 300px;
+    font-size: 50px;
+    border: 7px solid #13353a;
+    border-radius: 50px;
 
-    margin: 5px auto;
+    margin: 20px auto;
 }

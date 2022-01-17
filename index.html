@@ -8,23 +8,36 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <h1>Pomodoro</h1>
+        <h1 id="main-title">25 + 5 Clock</h1>
 
         <div id="container">
 
             <div id="time-bar">
+
                 <div id="break-control">
+
                     <div id="break-label">Break Length</div>
-                    <button id="break-decrement">-</button>
+                    
+                    <button id="break-decrement">
+                        <i class="fa fa-arrow-down fa-2x"></i>
+                    </button>
+
                     <span id="break-length">5</span>
-                    <button id="break-increment">+</button>
+                    <button id="break-increment">
+                        <i class="fa fa-arrow-up fa-2x"></i>
+                    </button>
+
                 </div>
 
                 <div id="session-control">
                     <div id="session-label">Session Length</div>
-                    <button id="session-decrement">-</button>
+                    <button id="session-decrement">
+                        <i class="fa fa-arrow-down fa-2x"></i>
+                    </button>
                     <span id="session-length">25</span>
-                    <button id="session-increment">+</button>
+                    <button id="session-increment">
+                        <i class="fa fa-arrow-up fa-2x"></i>
+                    </button>
                 </div>
             </div>
 
@@ -41,14 +54,17 @@
             <button id="reset">
                 <i class="fa fa-sync-alt fa-2x"></i>
             </button>
+
+            <p>Disigned and Code by</p>
+            <p>grayTurtle</p>
         </div>
 
 
-        DEV-Mode:<input type="checkbox" id="switch">
+        <!-- DEV-Mode:<input type="checkbox" id="switch"> -->
 
         <audio id="beep" src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"></audio>
 
     <script src="main.js"></script>
-    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+    <!-- <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script> -->
     </body>
 </html>

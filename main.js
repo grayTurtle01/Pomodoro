@@ -16,27 +16,27 @@ let interval = setInterval(decrement_second, 1000)
 clearInterval(interval)
 
 // dev-mod
-document.querySelector('input').onclick = function(){
+// document.querySelector('input').onclick = function(){
     
-    if( this.checked ){
+//     if( this.checked ){
 
-        break_time = 1
-        session_time = 1
-        minutes = session_time
-        str_timer = '01:00'
-        max_seconds = 5
-        second_speed_ms = 1000
-    }
-    else{
-        break_time = 5
-        session_time = 25
-        minutes = session_time
-        str_timer = '25:00'
-        max_seconds = 59
-        second_speed_ms = 1000
-    }
-     init()
-}
+//         break_time = 1
+//         session_time = 1
+//         minutes = session_time
+//         str_timer = '01:00'
+//         max_seconds = 5
+//         second_speed_ms = 1000
+//     }
+//     else{
+//         break_time = 5
+//         session_time = 25
+//         minutes = session_time
+//         str_timer = '25:00'
+//         max_seconds = 59
+//         second_speed_ms = 1000
+//     }
+//      init()
+// }
 
 function init(){
     document.querySelector("#break-length").innerText = break_time
