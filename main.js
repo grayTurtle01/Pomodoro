@@ -15,28 +15,6 @@ let audio = document.querySelector("audio")
 let interval = setInterval(decrement_second, 1000)
 clearInterval(interval)
 
-// dev-mod
-// document.querySelector('input').onclick = function(){
-    
-//     if( this.checked ){
-
-//         break_time = 1
-//         session_time = 1
-//         minutes = session_time
-//         str_timer = '01:00'
-//         max_seconds = 5
-//         second_speed_ms = 1000
-//     }
-//     else{
-//         break_time = 5
-//         session_time = 25
-//         minutes = session_time
-//         str_timer = '25:00'
-//         max_seconds = 59
-//         second_speed_ms = 1000
-//     }
-//      init()
-// }
 
 function init(){
     document.querySelector("#break-length").innerText = break_time
@@ -142,11 +120,17 @@ document.querySelector("#start_stop").onclick = function(){
 
 function start_stop(){
 
+    let btn = document.querySelector('#smart_button')
+
     if( is_playing ){
         interval = setInterval(decrement_second, second_speed_ms)
+        btn.classList.add('fa-pause')
+        btn.classList.remove('fa-play')
     }
     else{
         try{
+            btn.classList.add('fa-play')
+            btn.classList.remove('fa-pause')
             clearInterval(interval)
         }catch{
             console.log("interval error")
